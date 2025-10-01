@@ -15,7 +15,6 @@ export default function App() {
 
       <Waterboard 
       goal={50}
-      date= {ukedag + " " + dato}
       />
       
     </div>
