@@ -6,4 +6,36 @@
 }
 
 
+/* Ytre grid: bilde – innhold – bilde */
+.shell {
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 720px) 1fr; /* kolonnene deler plassen som er igjen, midt er min 320 max 8730/*
+  gap: 1rem;
+  align-items: start;  /* eller center om du vil vertikalt i midten */
+  padding: 1rem;
+  min-height: 100dvh;  /* valgfritt: strekk til høyden av viewport */
+}
+
+/* Midtinnhold alltid sentrert */
+.content {
+  text-align: center;
+}
+
+/* Sidebilder skalerer responsivt */
+.side-img {
+  width: clamp(200px, 18vw, 400px);
+  height: auto;
+  justify-self: center;
+}
+
+
+/* Mobil: skjul sidebildene, vis bare midten */
+@media (max-width: 768px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+  .side-img {
+    display: none;
+  }
+}
 
