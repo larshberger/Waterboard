@@ -1,5 +1,6 @@
 import './App.css'
 import Waterboard from './assets/Oversikt/Waterboard'
+import VANN from './assets/VANN.png'
 
 export default function App() {
   const now = new Date();
@@ -9,14 +10,35 @@ export default function App() {
 
 
   return (
-    <div>
-      <h1>WELCOME TO YOUR WATERBOARD</h1>
-      <h2>{ukedag} {dato}</h2>
+    <div className="shell">
 
-      <Waterboard 
-      goal={50}
+    {/* Venstre bilde */}      
+      <img
+        className="side-img"
+        src={VANN}
+        alt="bilde av en ung mann som drikker vann"
+        loading="lazy"
+        decoding="async"
+        style={{ display: 'block', margin: '0 auto 12px', height: 'auto' }}
       />
-      
+
+      {/* Midtinnhold */}
+      <main className="content">
+        <h1>WATERBOARD</h1>
+        <h2>{ukedag} {dato}</h2>
+        <Waterboard goal={5} />
+      </main>
+
+      {/* Høyre bilde (speilet for symmetri) */}
+      <img
+        className="side-img"
+        src={VANN}
+        alt="bilde av en ung mann som drikker vanm"
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+      />
+
     </div>
   )
 }
