@@ -1,0 +1,27 @@
+.btn {
+  font: inherit;                 /* arver font fra siden/app */
+  padding: .6rem 1rem;           /* litt luft */
+  border: none;                  /* vekk med default kant */
+  border-radius: .5rem;          /* myke hjørner */
+  background: #111827;           /* mørk bakgrunn */
+  color: #fff;                   /* lys tekst */
+  cursor: pointer;               /* pekehånd */
+  transition: background .15s, transform .05s; /* smooth hover/press */
+}
+
+.btn:hover { background: #0f172a; }        /* litt mørkere ved hover */
+.btn:active { transform: translateY(1px); }/* “trykk”-følelse */
+
+.btn:focus-visible {                       /* tastatur-fokusring */
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+
+.btn[disabled] {                           /* disabled-state */
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+/* valgfri rød variant (for -BOOM) */
+.btn--danger { background: #dc2626; }
+.btn--danger:hover { background: #b91c1c; }
