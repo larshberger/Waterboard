@@ -89,7 +89,7 @@ export default function Waterboard({ goal }) {
     <img
       className="side-img"
       src={icon}
-      alt="bilde av en ung mann som drikker vann"
+      alt="vann-glass som fylles opp når man drikker vann"
       loading="lazy"
       decoding="async"
       style={{ display: 'block', margin: '0 auto 12px', height: 'auto' }}
@@ -113,7 +113,7 @@ export default function Waterboard({ goal }) {
     <img
         className="side-img"
         src={icon}
-        alt="bilde av en ung mann som drikker vanm"
+        alt="vann-glass som fylles opp når man drikker vann"
         aria-hidden="true"
         loading="lazy"
         decoding="async"
