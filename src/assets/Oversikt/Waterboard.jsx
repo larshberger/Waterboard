@@ -1,6 +1,8 @@
+import './Waterboard.css';
 import { useEffect, useMemo, useState } from 'react'
 import PlussMinusKnapp from '../Knapp/PlussMinusKnapp'
 import { loadDay, saveDay, todayKey } from '../storage'
+import iconMap from './Icons.jsx';
 
 
 export default function Waterboard({ goal }) {
@@ -15,7 +17,6 @@ export default function Waterboard({ goal }) {
   const [counts, setCounts] = useState({});
   const [dateKey, setDateKey] = useState(todayKey());
   const [hydrated, setHydrated] = useState(false) 
-
 
   // Første last: hent for dagens dato (eller når datoen endrer seg)
   useEffect(() => {
@@ -64,20 +65,60 @@ export default function Waterboard({ goal }) {
 
   const fixFloat = (x) => x.toLocaleString('nb-NO', { maximumFractionDigits: 3 });
 
-  return (
-  <div>
-  <h3>Totalt drukket: {fixFloat(total)} l av {goal} l</h3>
+  // Hjelper: finn riktig ikonindeks (0–7) fra total og goal
+  function iconIndexFromProgress(total, goal) {
+    if (!goal || goal <= 0) return 0;          // unngå deling på 0
+    if (total <= 0) return 0;
+    if (total >= goal * 1.0) return total > goal ? 7 : 6;
 
-  {drinks.map(d => (
-    <PlussMinusKnapp
-      key={d.label}
-      label={`${d.label}`}
-      liters={d.liters}
-      count={counts[d.label]?.count ?? 0}
-      onAdd={() => bump(d.label, +1)}
-      onRemove={() => bump(d.label, -1)}
+    const ratio = total / goal;                 // 0 < ratio < 1
+    // Del inn 0–100% i 6 like “buckets” og rund NED.
+    // 0% → 0 (håndtert over), (0–16.6%] → 1, ... (83.3–<100%) → 5
+    const bucket = Math.floor(ratio * 6);       // 0..5
+    return Math.max(1, Math.min(5, bucket));    // tving 1..5
+  }
+
+  const iconIndex = useMemo(() => iconIndexFromProgress(total, goal), [total, goal]);
+  const icon = iconMap[iconIndex];
+
+  //selve komponenten
+  return (
+  <div className="shell">
+
+    {/* Venstre bilde */}      
+    <img
+      className="side-img"
+      src={icon}
+      alt="bilde av en ung mann som drikker vann"
+      loading="lazy"
+      decoding="async"
+      style={{ display: 'block', margin: '0 auto 12px', height: 'auto' }}
     />
-    ))}
+
+    <main className ="content">
+    <h3>Totalt drukket: {fixFloat(total)} l av {goal} l</h3>
+
+    {drinks.map(d => (
+      <PlussMinusKnapp
+        key={d.label}
+        label={`${d.label}`}
+        liters={d.liters}
+        count={counts[d.label]?.count ?? 0}
+        onAdd={() => bump(d.label, +1)}
+        onRemove={() => bump(d.label, -1)}
+      />
+      ))}
+    </main>
+
+    <img
+        className="side-img"
+        src={icon}
+        alt="bilde av en ung mann som drikker vanm"
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+    />
+
   </div>
   )
 }
