@@ -1,0 +1,52 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+
+/* Ytre grid: bilde – innhold – bilde */
+.shell {
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 720px) 1fr; 
+  gap: 1rem;
+  align-items: start;  
+  padding: 1rem;
+}
+
+/* Midtinnhold alltid sentrert */
+.content {
+  display: inline-block;                 /* gjør at boksen krymper til innholdet */
+  background: rgba(95, 196, 248, 0.8);  /* eller en fast farge */
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin: 0 auto;                        /* sentrer i midten av kolonnen */
+}
+
+
+/* Sidebilder skalerer responsivt */
+.side-img {
+  width: clamp(200px, 18vw, 400px);
+  height: auto;
+  aspect-ratio: 3 /4;
+  object-fit: contain;
+  justify-self: center;
+}
+
+
+/* Mobil: skjul sidebildene, vis bare midten */
+@media (max-width: 768px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+  .side-img {
+    display: none;
+  }
+  .content {
+    display: block;
+    width: 100%;
+  }
+}
